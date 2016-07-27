@@ -1,0 +1,33 @@
+main_collective = mcollective
+collectives = mcollective
+libdir = /usr/libexec/mcollective
+logger_type = console
+loglevel = warn
+direct_addressing = 1
+
+identity = <%= @ipaddress %>
+
+# Security Provider
+securityprovider = psk
+plugin.psk = <%= @psk %>
+
+connector = activemq
+plugin.activemq.pool.size = <%= @activemq_client.length %>
+<% counter = 1 %>
+
+<% @activemq_client.each do |key| %>
+<% key.values.each do |v1| %>
+plugin.activemq.pool.<%= counter %>.host = <%= v1['host'] %>
+plugin.activemq.pool.<%= counter %>.port = <%= v1['port'] %>
+plugin.activemq.pool.<%= counter %>.user = <%= v1['user'] %>
+plugin.activemq.pool.<%= counter %>.password = <%= v1['password'] %>
+<% counter += 1%>
+<% end %>
+<% end %>
+
+# Facts
+factsource = yaml
+plugin.yaml = /etc/puppetlabs/mcollective/facts.yaml
+
+
+discovery_timeout = 5

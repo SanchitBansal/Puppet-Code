@@ -1,0 +1,4 @@
+---
+X::reposerver: "http://www.example.com"
+Y::reposerver: "http://www.example.com"
+Z::reposerver: "http://www.example.com"

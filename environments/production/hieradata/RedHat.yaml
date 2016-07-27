@@ -1,0 +1,61 @@
+mcollective::dev_psk: "sample"
+mcollective::prod_psk: "sample"
+mcollective::validation::client: '^.+$'
+mcollective::validation::server: '^.+$'
+mcollective::activemq::client:
+                - activemq1:
+                        host: "activemq1"
+                        port: "6163"
+                        user: "admin"
+                        password: "sample"
+                - activemq2:
+                        host: "activemq2"
+                        port: "6163"
+                        user: "admin"
+                        password: "sample"
+
+mcollective::activemq::server:
+                - activemq1:
+                        host: "activemq1"
+                        port: "6163"
+                        user: "mcollective"
+                        password: "sample"
+                - activemq2:
+                        host: "activemq2"
+                        port: "6163"
+                        user: "mcollective"
+                        password: "sample"
+
+activemq::broker:
+                - broker0:
+                        name: "activemq-x1"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker1:
+                        name: "activemq-x2"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker2:
+                        name: "activemq-y1"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker3:
+                        name: "activemq-y2"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"

@@ -1,0 +1,59 @@
+main_collective = mcollective
+collectives = mcollective
+<% if @osfamily == "RedHat" -%>
+libdir = /usr/libexec/mcollective
+logfile = /var/log/mcollective.log
+<% end -%>
+<% if @osfamily == "windows" -%>
+libdir = C:\Program Files\Puppet Labs\Puppet\mcollective\lib
+logfile = C:\Program Files\Puppet Labs\Puppet\mcollective\mcollective.log
+<% end -%>
+loglevel = debug
+#registerinterval = 30
+daemonize = 1
+direct_addressing = 1
+identity = <%= @ipaddress %>
+
+# Plugins
+securityprovider = psk
+plugin.psk = <%= @psk %>
+
+connector = activemq
+plugin.activemq.pool.size = <%= @activemq_server.length %>
+
+<% counter = 1 %>
+
+<% @activemq_server.each do |key| %>
+<% key.values.each do |v1| %>
+plugin.activemq.pool.<%= counter %>.host = <%= v1['host'] %>
+plugin.activemq.pool.<%= counter %>.port = <%= v1['port'] %>
+plugin.activemq.pool.<%= counter %>.user = <%= v1['user'] %>
+plugin.activemq.pool.<%= counter %>.password = <%= v1['password'] %>
+<% counter += 1%>
+<% end %>
+<% end %>
+
+## Some default values, adding for the clarity
+
+plugin.activemq.initial_reconnect_delay = 0.01
+plugin.activemq.max_reconnect_delay = 30.0
+plugin.activemq.use_exponential_back_off = true
+plugin.activemq.back_off_multiplier = 2
+plugin.activemq.max_reconnect_attempts = 0
+plugin.activemq.randomize = false
+plugin.activemq.connect_timeout = 30
+
+## below line is set to ensure connectivity of agent with client as many firewalls will kill idle TCP connections after a while,
+## We can use registerinterval too but stomp heartbeat is lighter than registerinterval. Value is in seconds
+
+plugin.activemq.heartbeat_interval = 300
+
+
+# Facts
+factsource = yaml
+<% if @osfamily == "RedHat" -%>
+plugin.yaml = /etc/puppetlabs/mcollective/facts.yaml
+<% end -%>
+<% if @osfamily == "windows" -%>
+plugin.yaml = C:/Program Files/Puppet Labs/Puppet/mcollective/etc/facts.yaml
+<% end -%>
