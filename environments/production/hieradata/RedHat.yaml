@@ -6,6 +6,9 @@ sudoers::Y: "d,e,f"
 sudoers::DEVOPS: "sanchit"
 sudoers::BIGDATA: "sanchit,p,g"
 
+syslogng::apacheserver: "syslog-ng-access"
+syslogng::applicationserver: "syslog-ng-app"
+
 mcollective::dev_psk: "sample"
 mcollective::prod_psk: "sample"
 mcollective::validation::client: '^.+$'
@@ -33,3 +36,48 @@ mcollective::activemq::server:
                         port: "6163"
                         user: "mcollective"
                         password: "sample"
+
+activemq::broker:
+                - broker0:
+                        name: "activemq-x1"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker1:
+                        name: "activemq-x2"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker2:
+                        name: "activemq-y1"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+                - broker3:
+                        name: "activemq-y2"
+                        port: "61616"
+                        username: "amq"
+                        password: "secret"
+                        maxConnections: "1000"
+                        initJavaHeap: "3072"
+                        maxJavaHeap: "7072"
+
+syslogng::testing:
+        - apache:
+                file: "/opt/logs/httpd/access_log"
+                port: "7000"
+        - error:
+                file: "/opt/logs/tomcat/tomcat7/error.log"
+                port: "9001"
+        - catalina:
+                file: "/opt/logs/tomcat/tomcat7/catalina.out"
+                port: "9002"

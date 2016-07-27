@@ -1,0 +1,14 @@
+This is a test file.
+<% val1="" %>
+<% @var.each do |key| %> 
+<% key.keys.each do |k1| %> <% val1=k1 %> <% end %>
+<% key.values.each do |v1| %> 
+<% fname=v1['file'] %> 
+<% port=v1['port'] %>
+Port= <%= port %>
+Fnam= <%= fname %>
+Val1= <%= val1 %>
+
+<% end %>
+<% end %>
+
